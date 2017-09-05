@@ -122,7 +122,6 @@ USE_TZ = True
 
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'staticfiles'))
-
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
@@ -131,7 +130,7 @@ STATICFILES_DIRS = [
 ]
 
 # Settings for django-bootstrap3
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+#CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 
