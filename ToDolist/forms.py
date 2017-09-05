@@ -25,9 +25,3 @@ class TodoForm(forms.ModelForm):
         self.fields['content'].widget = Textarea(attrs={
             'class': 'form-control',
             'placeholder': 'Yapilacak'})
-
-
-# class TodoListForm(forms.ModelForm):
-#     class Meta:
-#         model = Todo
-#         fields = ['title', 'text', 'deadline', 'finished', 'finished_at', 'priority', 'created_at']#'__all__'

@@ -7,30 +7,6 @@
     <h2>Todo Items:</h2>
 
 
-
-
-{#    <!--<ul>-->#}
-{#        <!--{% for todo in todos %}-->#}
-{#        <!--<li>-->#}
-{#            <!--<a href="/todos/details/{{todo.id}}">{{todo.title}}</a>: {{todo.text}}-->#}
-{#            <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->#}
-{#            <!--<a class='edit' href="/todos/edit/{{todo.id}}">|Edit</a>-->#}
-{#            <!--<a class='delete' href="/todos/delete/{{todo.id}}">|Delete</a>-->#}
-{#            <!--<a class='finished' href="/todos/finished/{{todo.id}}">|Finished</a>-->#}
-{#            <!--{% if todo.priority == 1 %}-->#}
-{#               <!--<font color="red" class="importance">&#45;&#45;Urgent</font>-->#}
-{#            <!--{% endif %}-->#}
-{#            <!--{% if todo.priority == 2 %}-->#}
-{#               <!--<font color="blue" class="importance">&#45;&#45;Caution</font>-->#}
-{#            <!--{% endif %}-->#}
-{#            <!--{% if todo.priority == 3 %}-->#}
-{#               <!--<font color="black" class="importance">&#45;&#45;Smooth</font>-->#}
-{#            <!--{% endif %}-->#}
-{#            <!--<br>-->#}
-{#            <!--<font color="red" class="ddl_tag">Deadline:{{todo.deadline}}</font>-->#}
-{#        <!--</li>-->#}
-{#        <!--{% endfor %}-->#}
-{#    <!--</ul>-->#}
     <div class="alert alert-info" role="alert">
       <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
 
@@ -88,15 +64,17 @@
         <!--</li>-->
         <!--{% endfor %}-->
     <!--</ul>-->
-    <table width="800" border="1">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>content</th>
-                <th>Operation</th>
-                <th>Finished Date</th>
-            </tr>
-        </thead>
+    <div class="alert alert-warning" role="alert">
+{#      <strong>Heads up!</strong> This alert needs your attention, but it's not super important.#}
+    <div width="800" border="1">
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>Title</th>#}
+{#                <th>content</th>#}
+{#                <th>Operation</th>#}
+{#                <th>Finished Date</th>#}
+{#            </tr>#}
+{#        </thead>#}
         <tbody>
             {% for todo in finishedtodos %}
             <tr>
@@ -104,16 +82,25 @@
                     <a href="/todos/details/{{todo.id}}">{{todo.title}}</a>
                 </th>
                 <th>{{todo.text}}</th>
-                <th>
-                    <a class='edit' href="/todos/edit/{{todo.id}}">|Edit</a>
-                    <a class='delete' href="/todos/delete/{{todo.id}}">|Delete</a>
-                    <a class='finished' href="/todos/finished/{{todo.id}}">|Unfinished</a>
+{#                <th>#}
+{#                    <a class='edit' href="/todos/edit/{{todo.id}}">|Edit</a>#}
+{#                    <a class='delete' href="/todos/delete/{{todo.id}}">|Delete</a>#}
+{#                    <a class='finished' href="/todos/finished/{{todo.id}}">|Unfinished</a>#}
+{#                </th>#}
+                <th width="190px">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <a href="/todolist/edit/{{todo.id}}/" type="button" class="btn btn-secondary btn-info">Edit</a>
+                  <a href="/todolist/delete/{{todo.id}}/" type="button" class="btn btn-secondary btn-danger">Delite</a>
+                  <a href="/todolist/finished/{{todo.id}}/" type="button" class="btn btn-secondary btn-success">Unfinished</a>
+
+                </div>
                 </th>
                 <th>
                     <font color="red" class="ddl_tag">{{todo.finished_at}}</font>
                 </th>
             </tr>
         </tbody>
+    </div>
         {% endfor %}
     </table>
 </div>
@@ -153,9 +140,4 @@
 {#  <strong>Oh snap!</strong> Change a few things up and try submitting again.#}
 {#</div>#}
 
-
-
 {% endblock %}
-{% comment %}
-{% include 'todolist/partials/footer.html' %}
-{% endcomment %}
