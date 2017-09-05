@@ -1,0 +1,26 @@
+{% extends "todolist/base.html" %}
+
+{% load staticfiles %}
+
+{% block login %}
+    <div class="container">
+    <div class="">
+    <header id="main_header">
+    <div class="large-offset-3 large-order-6 columns">
+        <form action="{% url "auth:login" %}" method="post">
+            {% csrf_token %}
+            <label for="username">Имя пользователя</label>
+            <input type="text" name="username" id="username">
+            <label for="password">Пароль</label>
+            <input type="password" name="password" id="password">
+            {% if login_error %}
+                <label class="errors">{{ login_error }}</label>
+            {% endif %}
+            <input class="button" type="submit" value="Войти">
+            <a href="{% url "auth:register" %}" class="alert button right">Регистрация</a>
+        </form>
+    </div>
+    </header>
+    </div>
+    </div>
+{% endblock %}

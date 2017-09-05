@@ -24,68 +24,46 @@
 
   </head>
 <body background="{% static "img/blur1.jpg" %}" >
-{#<nav class="navbar navbar-inverse navbar-fixed-top">#}
-{#  <div class="container">#}
-{#    <div class="navbar-header">#}
-{#      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">#}
-{#        <span class="sr-only">Toggle navigation</span>#}
-{#        <span class="icon-bar"></span>#}
-{#      </button>#}
-{#        <nav class="navbar navbar-light bg-faded">#}
-{#          <a class="navbar-brand" href="#">#}
-{#            <img src="{% static "img/list.png" %}" width="18" height="18" class="d-inline-block align-top" alt=""></a>#}
-{#            <a class="navbar-brand" href="/">Single TODO list for RG</a>#}
-{#            </nav>#}
-{#    </div>#}
-{#    <div id="navbar" class="collapse navbar-collapse">#}
-{#      <ul class="nav navbar-nav">#}
-{#        <li class="active"><a href="#">Home</a></li>#}
-{#          <li><a href="#">About</a></li>#}
-{#          <li><a href="#">Contact</a></li>#}
-{#          <li> ___________________________ </li>#}
-{#          {% if username %}#}
-{#            <li><a href="{% url "auth:logout" %}" class="navbar-link pull-right">Logout user "{{ username }}"</a></li>#}
-{#          {% else %}#}
-{#            <li><a href="{% url "auth:login" %}" class="navbar-link pull-right">Sing up</a></li>#}
-{#          {% endif %}#}
-{#      </ul>#}
-{#    </div>#}
-{#  </div>#}
-{#</nav>#}
- <div class="container">
-    <div class="">
-    <header id="main_header">
-      <h1>TodoList</h1>
-        <a href="{% url "todolist:add" %}" class="btn btn-default">Add Todo</a>
-        <hr>
-    </header>
-
-
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+      </button>
+        <nav class="navbar navbar-light bg-faded">
+          <a class="navbar-brand" href="#">
+            <img src="{% static "img/list.png" %}" width="18" height="18" class="d-inline-block align-top" alt=""></a>
+            <a class="navbar-brand" href="/">Single TODO list for RG</a>
+            </nav>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li> ___________________________ </li>
+          {% if username %}
+            <li><a href="{% url "auth:logout" %}" class="navbar-link pull-right">Logout user "{{ username }}"</a></li>
+          {% else %}
+            <li><a href="{% url "auth:login" %}" class="navbar-link pull-right">Sing up</a></li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+<br><br><br><br>
 
 
 
     {% block index%}{% endblock %}
+    {% block login %}{% endblock %}
+    {% block register %}{% endblock %}
     {% block add %}{% endblock %}
     {% block details %}{% endblock %}
     {% block edit %}{% endblock %}
 
 
-
-{#    <div class=""></div>#}
-{#      <div class="card" style="width: 50rem ; background-color: #9acfea">#}
-{#        <div class="card-block">#}
-{#          <h1 class="card-title">Welcome to the Prototype App</h1>#}
-{#          <h3 class="card-text">This is the home page for the TODO application.</h3>#}
-{#          <a href="{% url "auth:login" %}" class="btn btn-primary">Sing up</a>#}
-{#        </div>#}
-{#        <div class=""></div>#}
-{#      </div>{% block login %}{% endblock %}#}
-{#        #}
-
-
-
-    </div>
-  </div>
 
 </body>
 </html>

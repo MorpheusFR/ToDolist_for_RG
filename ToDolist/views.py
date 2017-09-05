@@ -5,14 +5,17 @@ from django.http import HttpResponse
 from datetime import datetime, date
 from django.utils.timezone import get_current_timezone
 #from .forms import TodoListForm
+from django.contrib import auth
 
 # Create your views here.
 
 
 def index(request):
+    username = auth.get_user(request)
     todos = Todo.objects.filter(finished=False)
     finishedtodos = Todo.objects.filter(finished=True)
     context = {
+        'username': username,
         'todos': todos,
         'finishedtodos': finishedtodos,
     }

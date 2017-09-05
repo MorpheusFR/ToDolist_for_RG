@@ -18,9 +18,9 @@ def login(request):
             return redirect('/')
         else:
             args['login_error'] = 'Пользователь не найден'
-            return render_to_response('authuser/login.html', args)
+            return render_to_response('authuser/auth/login.html', args)
     else:
-        return render_to_response('authuser/login.html', args)
+        return render_to_response('authuser/auth/login.html', args)
 
 
 def logout(request):
@@ -43,4 +43,4 @@ def register(request):
             return redirect('/')
         else:
             args['form'] = newuser_form
-    return render_to_response('authuser/register.html', args)
+    return render_to_response('authuser/auth/register.html', args)
