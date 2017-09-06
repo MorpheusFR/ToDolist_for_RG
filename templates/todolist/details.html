@@ -2,11 +2,27 @@
 {% load staticfiles %}
 
 {% block details %}
-
-    <a href="{% url "todolist:index" %}"><< Go Back</a>
-    <br>
-    <h1>{{ todo.title }}</h1>
-    <p>{{ todo.text }}</p>
-    <br>
-    Created on {{todo.created_at}}
+<div class="container">
+  <header id="main_header">
+{#          <div class="alert alert-info" role="alert">#}
+    <div class="alert alert-info" role="alert">
+      <div class="card" style="width: 50rem">
+        <div class="card-block">
+          <a href="{% url "todolist:index" %}"><< Go Back</a>
+          <br>
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h1>{{ todo.title }}</h1>
+              </div>
+            <div class="panel-body">
+              <p>{{ todo.text }}</p>
+            </div>
+          </div>
+          <br>
+          Created on {{todo.created_at}}
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
 {% endblock %}
