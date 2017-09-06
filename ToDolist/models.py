@@ -1,13 +1,16 @@
 from datetime import datetime, date
+from django.contrib import auth
+from django.contrib.auth.models import User
 import time
+from django.utils import timezone
 
 from django.db import models
 
 
-# Create your models here.
 class Todo(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
+    creator = models.ForeignKey(User)
     created_at = models.DateTimeField(default=datetime.now(), blank=True)
     finished_at = models.DateTimeField(default=datetime.now(), blank=True)
     finished = models.BooleanField(default=False)

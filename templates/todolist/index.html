@@ -1,145 +1,91 @@
 {% extends 'todolist/base.html' %}
 {% load staticfiles %}
-{#{% load bootstrap3 %}#}
+
 
 {% block index %}
-    {% if username.is_authenticated %}
+    {% if username.is_authenticated and creator_id %}
 
     <div class="container">
     <div class="">
-    <header id="main_header">
-      <h1>TodoList</h1>
-        <a href="{% url "todolist:add" %}" class="btn btn-default">Add Todo</a>
-        <hr>
-    </header>
+        <header id="main_header">
+          <h1>TodoList</h1>
+            <a href="{% url "todolist:add" %}" class="btn btn-default">Add Todo</a>
+            <hr>
+        </header>
     <div class="todolist">
-    <div class="alert alert-info" role="alert">
       <strong><h2>Todo Items:</h2></strong>
-
-    <table width="1000" border="0">
-        <tr>
-            <th>Title</th>
-            <th>content</th>
-            <th>Operation</th>
-            <th>Status</th>
-            <th>Deadline</th>
-
-        </tr>
         {% for todo in todos %}
-        <tr>
-            <th><a class="btn btn-primary" href="/todolist/details/{{todo.id}}/" role="button">{{todo.title}}</a></th>
-            <th>{{todo.text}}</th>
-            <th width="190px">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                  <a href="/todolist/edit/{{todo.id}}/" type="button" class="btn btn-secondary btn-info">Edit</a>
-                  <a href="/todolist/delete/{{todo.id}}/" type="button" class="btn btn-secondary btn-danger">Delite</a>
-                  <a href="/todolist/finished/{{todo.id}}/" type="button" class="btn btn-secondary btn-success">Finished</a>
-
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <strong>
+                        <a class="btn btn-link" href="/todolist/details/{{todo.id}}/" role="button">{{todo.title}}</a>
+                        {% if todo.priority == 1 %}
+                           <font color="red" class="importance">Urgent</font>
+                        {% endif %}
+                        {% if todo.priority == 2 %}
+                           <font color="blue" class="importance">Caution</font>
+                        {% endif %}
+                        {% if todo.priority == 3 %}
+                           <font color="green" class="importance">Smooth</font>
+                        {% endif %}
+                        <font color="red" class="ddl_tag pull-right">Deadline :{{todo.deadline}}</font>
+                    </strong>
                 </div>
-            </th>
-            <th>
-                {% if todo.priority == 1 %}
-                   <font color="red" class="importance">Urgent</font>
-                {% endif %}
-                {% if todo.priority == 2 %}
-                   <font color="blue" class="importance">Caution</font>
-                {% endif %}
-                {% if todo.priority == 3 %}
-                   <font color="green" class="importance">Smooth</font>
-                {% endif %}
-            </th>
-            <th><font color="red" class="ddl_tag">{{todo.deadline}}</font></th>
-        </tr>
+                <div class="panel-body">
+                    <div>{{todo.text}}
+                        <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                            <a href="/todolist/edit/{{todo.id}}/" type="button" class="btn btn-secondary btn-info">Edit</a>
+                            <a href="/todolist/delete/{{todo.id}}/" type="button" class="btn btn-secondary btn-danger">Delite</a>
+                            <a href="/todolist/finished/{{todo.id}}/" type="button" class="btn btn-secondary btn-success">Finished</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </table>
     </div>
-    <br><hr>
+    <hr>
 </div>
-<div class="alert alert-warning" role="alert">
-<div class="finishedlist">
-    <h2>Finished Items:</h2>
-    <!--<ul>-->
-        <!--{% for todo in finishedtodos %}-->
-        <!--<li>-->
-        <!--<a href="/todos/details/{{todo.id}}">{{todo.title}}</a>: {{todo.text}}-->
-        <!--<a class='edit' href="/todos/edit/{{todo.id}}">|Edit</a>-->
-        <!--<a class='delete' href="/todos/delete/{{todo.id}}">|Delete</a>-->
-        <!--<a class='finished' href="/todos/finished/{{todo.id}}">|Unfinished</a>-->
-        <!--<br>-->
-        <!--<font color="red" class="ddl_tag">Finished at: {{todo.finished_at}}</font>-->
-        <!--</li>-->
-        <!--{% endfor %}-->
-    <!--</ul>-->
 
-    <div width="800" border="1">
-{#        <thead>#}
-{#            <tr>#}
-{#                <th>Title</th>#}
-{#                <th>content</th>#}
-{#                <th>Operation</th>#}
-{#                <th>Finished Date</th>#}
-{#            </tr>#}
-{#        </thead>#}
-        <tbody>
-            {% for todo in finishedtodos %}
-            <tr>
-                <th>
-                    <a href="/todos/details/{{todo.id}}">{{todo.title}}</a>
-                </th>
-                <th>{{todo.text}}</th>
-                <th width="190px">
-                <div class="btn-group" role="group" aria-label="Basic example">
+    <div class="finishedlist">
+    <h2>Finished Items:</h2>
+    {% for todo in finishedtodos %}
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <a href="/todos/details/{{todo.id}}">{{todo.title}}</a>
+                <font color="red" class="ddl_tag pull-right">Finished at: {{todo.finished_at}}</font>
+            </div>
+            <div class="panel-body">
+                {{todo.text}}
+                <div class="btn-group pull-right" role="group" aria-label="Basic example">
                   <a href="/todolist/edit/{{todo.id}}/" type="button" class="btn btn-secondary btn-info">Edit</a>
                   <a href="/todolist/delete/{{todo.id}}/" type="button" class="btn btn-secondary btn-danger">Delite</a>
                   <a href="/todolist/finished/{{todo.id}}/" type="button" class="btn btn-secondary btn-success">Unfinished</a>
-
                 </div>
-                </th>
-                <th>
-                    <font color="red" class="ddl_tag">{{todo.finished_at}}</font>
-                </th>
-            </tr>
-        </tbody>
+            </div>
+        </div>
     </div>
-        {% endfor %}
-    </table>
-</div>
+    {% endfor %}
+    </div>
     {% else %}
 
-{##}
-{#    <div class="alert alert-success" role="alert">#}
-{#  <strong>Well done!</strong> You successfully read this important alert message.#}
-{#</div>#}
-{#<div class="alert alert-info" role="alert">#}
-{#  <strong>Heads up!</strong> This alert needs your attention, but it's not super important.#}
-{#</div>#}
-{#<div class="alert alert-warning" role="alert">#}
-{#  <strong>Warning!</strong> Better check yourself, you're not looking too good.#}
-{#</div>#}
-{#<div class="alert alert-danger" role="alert">#}
-{#  <strong>Oh snap!</strong> Change a few things up and try submitting again.#}
-{#</div>#}
-    <div class="container">
-        <div class="">
-
+        <div class="container">
           <header id="main_header">
-          <div class="alert alert-info" role="alert">
-            <div class="card" style="width: 50rem">
-              <div class="card-block">
+            <div class="alert alert-info" role="alert">
+              <div class="card" style="width: 50rem">
+                <div class="card-block">
                   <h1 class="card-title">Welcome to the Prototype App</h1>
                   <h3 class="card-text">This is the home page for the TODO application.</h3>
                   <a href="{% url "auth:login" %}" class="btn btn-primary">Sing up</a>
+                </div>
               </div>
             </div>
-          </div>
           {% block login %}{% endblock %}
           </header>
         </div>
     </div>
     </div>
-    </div>
 
-</div>
+
 
     {% endif %}
 {% endblock %}

@@ -12,9 +12,11 @@ from django.contrib import auth
 
 def index(request):
     username = auth.get_user(request)
-    todos = Todo.objects.filter(finished=False)
+    creator = username.id
+    todos = Todo.objects.filter(finished=False, creator_id=username.id)
     finishedtodos = Todo.objects.filter(finished=True)
     context = {
+        'creator_id': creator,
         'username': username,
         'todos': todos,
         'finishedtodos': finishedtodos,
@@ -25,6 +27,7 @@ def index(request):
 def details(request, id):
     todo = Todo.objects.get(id=id)
     context = {
+
         'todo': todo,
     }
     return render(request, 'todolist/details.html', context)
@@ -32,11 +35,12 @@ def details(request, id):
 
 def add(request):
     if(request.method == 'POST'):
+        creator = (auth.get_user(request)).id
         title = request.POST['title']
         text = request.POST['text']
         priority = request.POST['priority']
         deadlinea = request.POST['deadlinea']
-        todo = Todo(title=title, text=text, priority=priority, deadline=deadlinea)
+        todo = Todo(title=title, text=text, priority=priority, deadline=deadlinea, creator_id=creator)
         todo.save()
 
         return redirect('/')
@@ -61,7 +65,8 @@ def edit(request, id):
 
 
 def delete(request, id):
-    try:todo = Todo.objects.get(id=id)
+    try:
+        todo = Todo.objects.get(id=id)
     except Exception:
         raise Http404
     if todo:
@@ -71,12 +76,14 @@ def delete(request, id):
 
 def finished(request, id):
     try:
+        username = auth.get_user(request)
         todo = Todo.objects.get(id=id)
+
     except Exception:
         raise Http404
-    if todo:
+    if todo and username.id == todo.creator_id:
         if todo.finished == False:
-            todo = Todo.objects.filter(id=id).update(finished=True, finished_at=datetime.now())
+            todo = Todo.objects.filter(id=id, creator_id=username.id).update(finished=True, finished_at=datetime.now())
         else:
-            todo = Todo.objects.filter(id=id).update(finished=False)
+            todo = Todo.objects.filter(id=id, creator_id=username.id).update(finished=False)
     return redirect('/')
